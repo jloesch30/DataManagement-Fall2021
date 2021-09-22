@@ -95,7 +95,8 @@ CREATE TABLE room (
     CONSTRAINT room_location_fk FOREIGN KEY ( location_id )
         REFERENCES location ( location_id ),
     CONSTRAINT location_id_room_number_unique UNIQUE ( location_id,
-                                                       room_number )
+                                                       room_number ),
+    CONSTRAINT room_type_check CHECK ( room_type IN ( 'D', 'Q', 'K', 'S', 'C' ) )
 );
 /
 
@@ -141,7 +142,8 @@ CREATE TABLE reservation (
     CONSTRAINT reservation_customer_fk FOREIGN KEY ( customer_id )
         REFERENCES customer ( customer_id ),
     CONSTRAINT reservation_location_fk FOREIGN KEY ( location_id )
-        REFERENCES location ( location_id )
+        REFERENCES location ( location_id ),
+    CONSTRAINT reservation_status_check CHECK ( status IN ( 'U', 'I', 'C', 'N', 'R' ) )
 );
 /
 
@@ -604,4 +606,4 @@ INSERT INTO reservation (
     'HAPPY21'
 );
 
-commit;
+COMMIT;
